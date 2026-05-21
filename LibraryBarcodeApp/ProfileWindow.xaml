@@ -1,0 +1,76 @@
+<Window x:Class="LibraryBarcodeApp.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Мой профиль"
+        Height="460"
+        Width="520"
+        MinHeight="420"
+        MinWidth="480"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Text="Профиль" />
+
+        <StackPanel Grid.Row="1" Margin="0,12,0,0">
+            <TextBlock FontWeight="SemiBold" Text="Email" />
+            <TextBox Height="30"
+                     VerticalContentAlignment="Center"
+                     IsReadOnly="True"
+                     Text="{Binding Email, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,10,0,0">
+            <TextBlock FontWeight="SemiBold" Text="ФИО" />
+            <DockPanel>
+                <TextBox x:Name="FullNameTextBox"
+                         Height="30"
+                         VerticalContentAlignment="Center"
+                         Width="360"
+                         Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Margin="10,0,0,0"
+                        Width="110"
+                        Height="30"
+                        Content="Сохранить"
+                        Click="SaveFullName_Click" />
+            </DockPanel>
+        </StackPanel>
+
+        <GroupBox Grid.Row="3" Header="Смена пароля" Margin="0,14,0,0">
+            <StackPanel Margin="10">
+                <TextBlock Text="Старый пароль" />
+                <PasswordBox x:Name="OldPasswordBox" Height="28" />
+                <TextBlock Margin="0,10,0,0" Text="Новый пароль" />
+                <PasswordBox x:Name="NewPasswordBox" Height="28" />
+                <TextBlock Margin="0,10,0,0" Text="Повтор нового пароля" />
+                <PasswordBox x:Name="ConfirmNewPasswordBox" Height="28" />
+                <Button Margin="0,12,0,0"
+                        Height="32"
+                        Content="Сменить пароль"
+                        Click="ChangePassword_Click" />
+            </StackPanel>
+        </GroupBox>
+
+        <DockPanel Grid.Row="4" Margin="0,12,0,0" LastChildFill="True">
+            <Button x:Name="RequestUpgradeButton"
+                    DockPanel.Dock="Left"
+                    Height="32"
+                    Width="240"
+                    Content="Запросить повышение роли"
+                    Click="RequestUpgrade_Click" />
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="DimGray"
+                       Text="{Binding StatusMessage}" />
+        </DockPanel>
+    </Grid>
+</Window>
+

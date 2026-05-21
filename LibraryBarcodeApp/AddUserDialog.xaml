@@ -1,0 +1,67 @@
+<Window x:Class="LibraryBarcodeApp.AddUserDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавить пользователя"
+        Height="440"
+        Width="460"
+        MinHeight="420"
+        MinWidth="440"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Text="Создание пользователя" />
+
+        <StackPanel Grid.Row="1" Margin="0,12,0,0">
+            <TextBlock FontWeight="SemiBold" Text="Email" />
+            <TextBox x:Name="EmailTextBox"
+                     Height="30"
+                     VerticalContentAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,10,0,0">
+            <TextBlock FontWeight="SemiBold" Text="ФИО" />
+            <TextBox x:Name="FullNameTextBox"
+                     Height="30"
+                     VerticalContentAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,10,0,0">
+            <TextBlock FontWeight="SemiBold" Text="Пароль" />
+            <PasswordBox x:Name="PasswordBox" Height="30" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Margin="0,10,0,0">
+            <TextBlock FontWeight="SemiBold" Text="Подтверждение пароля" />
+            <PasswordBox x:Name="ConfirmPasswordBox" Height="30" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Margin="0,10,0,0">
+            <TextBlock FontWeight="SemiBold" Text="Роль" />
+            <ComboBox x:Name="RoleComboBox" Height="30" SelectedIndex="0">
+                <ComboBoxItem Content="Сотрудник" Tag="employee" />
+                <ComboBoxItem Content="Администратор" Tag="admin" />
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Margin="0,14,0,0">
+            <Label x:Name="ErrorLabel" Foreground="Crimson" Content="" />
+            <Button Height="34"
+                    Content="Создать"
+                    Click="Create_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
+

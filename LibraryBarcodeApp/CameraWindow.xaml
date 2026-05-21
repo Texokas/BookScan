@@ -1,0 +1,60 @@
+<Window x:Class="LibraryBarcodeApp.CameraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Сканирование камерой"
+        Height="520"
+        Width="680"
+        MinHeight="420"
+        MinWidth="540"
+        WindowStartupLocation="CenterOwner"
+        Background="#1A1F2E">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Camera preview -->
+        <Border Grid.Row="0" Margin="12,12,12,8" CornerRadius="8" Background="#0D1018">
+            <Image x:Name="CameraFeed" Stretch="Uniform" />
+        </Border>
+
+        <!-- Status bar + cancel -->
+        <Border Grid.Row="1"
+                Margin="12,0,12,12"
+                Background="#252D45"
+                CornerRadius="8"
+                Padding="14,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="StatusText"
+                               Text="Наведите камеру на штрихкод..."
+                               Foreground="#B5C2E5"
+                               FontSize="13" />
+                    <TextBlock x:Name="DeviceText"
+                               Foreground="#6A748B"
+                               FontSize="11"
+                               Margin="0,3,0,0" />
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        Width="100"
+                        Height="34"
+                        Background="#3D63DD"
+                        Foreground="White"
+                        BorderBrush="#3D63DD"
+                        BorderThickness="1"
+                        Cursor="Hand"
+                        FontWeight="SemiBold"
+                        Content="Отмена"
+                        Click="Cancel_Click" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

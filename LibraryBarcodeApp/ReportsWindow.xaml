@@ -1,0 +1,67 @@
+<Window x:Class="LibraryBarcodeApp.ReportsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Отчеты"
+        Height="620"
+        Width="980"
+        MinHeight="520"
+        MinWidth="840"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,12"
+                   Text="Отчет по выдачам и возвратам" />
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,10">
+            <TextBlock VerticalAlignment="Center" Text="Период с:" />
+            <DatePicker x:Name="StartDatePicker"
+                        Width="140"
+                        Margin="8,0,16,0" />
+            <TextBlock VerticalAlignment="Center" Text="по:" />
+            <DatePicker x:Name="EndDatePicker"
+                        Width="140"
+                        Margin="8,0,16,0" />
+            <Button Width="240"
+                    Height="32"
+                    Content="Сформировать отчет по выдачам"
+                    Click="GenerateReport_Click" />
+        </StackPanel>
+
+        <DataGrid x:Name="OperationsDataGrid"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата/время" Binding="{Binding Timestamp}" Width="1.2*" />
+                <DataGridTextColumn Header="Операция" Binding="{Binding OperationType}" Width="1*" />
+                <DataGridTextColumn Header="Штрихкод" Binding="{Binding Barcode}" Width="1.3*" />
+                <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="2.2*" />
+                <DataGridTextColumn Header="Автор" Binding="{Binding Author}" Width="1.6*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal">
+            <Button Width="180"
+                    Height="32"
+                    Content="Экспорт в CSV/Excel"
+                    Click="ExportCsv_Click" />
+            <TextBlock x:Name="SummaryTextBlock"
+                       Margin="14,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="DimGray" />
+        </StackPanel>
+    </Grid>
+</Window>

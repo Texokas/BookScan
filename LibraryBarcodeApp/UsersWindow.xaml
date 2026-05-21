@@ -1,0 +1,115 @@
+<Window x:Class="LibraryBarcodeApp.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:LibraryBarcodeApp.Converters"
+        Title="Пользователи"
+        Height="600"
+        Width="1050"
+        MinHeight="520"
+        MinWidth="900">
+    <Window.Resources>
+        <conv:BoolNegationConverter x:Key="BoolNegation" />
+    </Window.Resources>
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Text="Поиск:" />
+            <TextBox Margin="10,0,0,0"
+                     Width="420"
+                     Height="30"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Margin="10,0,0,0"
+                    Width="120"
+                    Height="30"
+                    Content="Обновить"
+                    Command="{Binding RefreshCommand}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  Grid.Column="0"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="False"
+                  ItemsSource="{Binding UsersView}"
+                  SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                  Margin="0,0,10,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*" IsReadOnly="True" />
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="2*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="1*" IsReadOnly="True" />
+                <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="0.8*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Последний вход" Binding="{Binding LastSignIn}" Width="1.4*" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                Padding="12"
+                BorderBrush="#DDD"
+                BorderThickness="1"
+                CornerRadius="6"
+                Width="310">
+            <StackPanel>
+                <TextBlock FontSize="15" FontWeight="SemiBold" Text="Управление" Margin="0,0,0,10" />
+
+                <Button Content="Добавить пользователя"
+                        Height="32"
+                        Margin="0,0,0,8"
+                        Click="AddUser_Click" />
+
+                <Button Content="Удалить пользователя"
+                        Height="32"
+                        Margin="0,0,0,12"
+                        Click="DeleteUser_Click" />
+
+                <TextBlock Text="Роль" FontWeight="SemiBold" />
+                <ComboBox Margin="0,6,0,6"
+                          SelectedValuePath="Tag"
+                          SelectedValue="{Binding SelectedUser.Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="Сотрудник" Tag="employee" />
+                    <ComboBoxItem Content="Администратор" Tag="admin" />
+                </ComboBox>
+                <Button Content="Применить роль"
+                        Height="32"
+                        Margin="0,0,0,12"
+                        Click="ApplyRole_Click" />
+
+                <CheckBox Content="Заблокировать пользователя"
+                          Margin="0,0,0,8"
+                          IsChecked="{Binding SelectedUser.IsActive, Mode=TwoWay, Converter={StaticResource BoolNegation}}" />
+                <Button Content="Применить блокировку"
+                        Height="32"
+                        Margin="0,0,0,12"
+                        Click="ApplyBlock_Click" />
+
+                <Button Content="Сбросить пароль"
+                        Height="32"
+                        Margin="0,0,0,6"
+                        Click="ResetPassword_Click" />
+
+                <TextBlock FontSize="12" Foreground="DimGray" TextWrapping="Wrap">
+                    Примечание: пароль будет сгенерирован и показан администратору.
+                </TextBlock>
+            </StackPanel>
+        </Border>
+
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0">
+            <TextBlock DockPanel.Dock="Left"
+                       FontWeight="SemiBold"
+                       Text="{Binding StatisticsText}" />
+            <TextBlock DockPanel.Dock="Right"
+                       Foreground="DimGray"
+                       Text="{Binding StatusMessage}" />
+        </DockPanel>
+    </Grid>
+</Window>
+
